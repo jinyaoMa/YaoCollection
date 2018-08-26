@@ -159,6 +159,15 @@ public class AudioService extends Service {
     public void onCreate() {
         super.onCreate();
 
+        lastX = -1;
+        lastY = -1;
+        lastXControl = -1;
+        lastYControl = -1;
+        lastMode = MODE_NORMAL;
+        lastSonglist = new SongList();
+        lastSongIndex = -1;
+        lastProxy = false;
+
         AudioConfig.trustEveryone();
         setDefaultCache();
 
@@ -210,7 +219,6 @@ public class AudioService extends Service {
                 } else {
                     controllerWidget.create(lastXControl, lastYControl);
                 }
-                controllerWidget.setModeState(lastMode);
                 if (!lastSonglist.isEmpty()) {
                     controllerWidget.setSonglist(lastSonglist);
                     if (lastSongIndex >= 0) {
@@ -218,6 +226,7 @@ public class AudioService extends Service {
                         createAudioPlayerOnce(lastSonglist);
                     }
                 }
+                controllerWidget.setModeState(lastMode);
 
                 settingWidget.setProxyEnable(lastProxy);
             }
@@ -502,6 +511,9 @@ public class AudioService extends Service {
                     @Override
                     public void onPlaylistChanged(IjkMediaPlayer ijkMediaPlayer, Song song) {
                         controllerWidget.addSong(song);
+                        if (audioPlayer != null) {
+                            lastSonglist = new Gson().fromJson(audioPlayer.getSongListJson(), SongList.class);
+                        }
                     }
 
                     @Override
@@ -531,6 +543,7 @@ public class AudioService extends Service {
                     @Override
                     public void onModeChanged(IjkMediaPlayer ijkMediaPlayer, int mode) {
                         controllerWidget.setModeState(mode);
+                        lastMode = mode;
                     }
 
                     @Override
@@ -599,6 +612,7 @@ public class AudioService extends Service {
         editor.putInt(LAST_X_CONTROL, lastXControl);
         editor.putInt(LAST_Y_CONTROL, lastYControl);
         editor.putInt(LAST_SONG_INDEX, lastSongIndex);
+        editor.putInt(LAST_MODE, lastMode);
         editor.putBoolean(LAST_PROXY, lastProxy);
         if (audioPlayer != null) {
             editor.putString(LAST_SONGLIST, audioPlayer.getSongListJson());
@@ -653,6 +667,18 @@ public class AudioService extends Service {
         super.onDestroy();
     }
 
+    private static Boolean isServiceOn = false;
+    private static final String STOP_COMMAND = "stop";
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent.getBooleanExtra(STOP_COMMAND, false)) {
+            stopSelf();
+        }
+
+        return super.onStartCommand(intent, flags, startId);
+    }
+
     public static Boolean checkPermissionAndStart(Activity activity, int requestCode, int grantResult) {
         if (grantResult == PackageManager.PERMISSION_DENIED) {
             return false;
@@ -674,8 +700,22 @@ public class AudioService extends Service {
         } else {
             Intent intent = new Intent(activity, AudioService.class);
             activity.startForegroundService(intent);
+            isServiceOn = true;
             return true;
         }
         return false;
+    }
+
+    public static void stop(Activity activity) {
+        if (isServiceOn) {
+            Intent intent = new Intent(activity, AudioService.class);
+            intent.putExtra(STOP_COMMAND, true);
+            activity.startForegroundService(intent);
+            isServiceOn = false;
+        }
+    }
+
+    public static Boolean isRunning() {
+        return isServiceOn;
     }
 }

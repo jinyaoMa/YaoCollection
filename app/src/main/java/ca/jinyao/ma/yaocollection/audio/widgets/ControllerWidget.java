@@ -332,7 +332,6 @@ public class ControllerWidget implements View.OnTouchListener, View.OnClickListe
                 break;
             case MODE_REPEAT_LIST:
                 ivMode.setImageResource(R.drawable.ic_action_mode_repeat_list);
-                break;
         }
     }
 

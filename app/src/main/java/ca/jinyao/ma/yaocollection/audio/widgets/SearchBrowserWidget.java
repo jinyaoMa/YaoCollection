@@ -360,9 +360,6 @@ public class SearchBrowserWidget implements SearchBrowser.AsyncListener, TabLayo
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
-        ivLoad.start();
-        isFirstLoad = true;
-
         int tag = (int) tab.getTag();
         int pos = tab.getPosition();
         switch (tag) {
@@ -394,6 +391,8 @@ public class SearchBrowserWidget implements SearchBrowser.AsyncListener, TabLayo
         if (currentKeyword.isEmpty()) {
             return;
         }
+        ivLoad.start();
+        isFirstLoad = true;
         searchBrowser.search(currentRef, currentTab, currentKeyword);
     }
 

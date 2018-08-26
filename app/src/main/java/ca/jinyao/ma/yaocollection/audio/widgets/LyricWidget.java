@@ -141,6 +141,9 @@ public class LyricWidget implements View.OnTouchListener, View.OnClickListener, 
     }
 
     public void goToTimeline(long position) {
+        if (currentLyric == null) {
+            return;
+        }
         Lyric.Line nextLine = currentLyric.getLineAtTimeline(position);
         if (nextLine == null) {
             return;
