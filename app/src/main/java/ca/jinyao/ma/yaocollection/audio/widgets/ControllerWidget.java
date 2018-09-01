@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -34,7 +35,7 @@ import static ca.jinyao.ma.yaocollection.audio.cores.AudioConfig.MODE_REPEAT_LIS
  * Class ControllerWidget
  * create by jinyaoMa 0023 2018/8/23 17:46
  */
-public class ControllerWidget implements View.OnTouchListener, View.OnClickListener, SeekBar.OnSeekBarChangeListener, AdapterView.OnItemClickListener {
+public class ControllerWidget implements View.OnTouchListener, View.OnClickListener, SeekBar.OnSeekBarChangeListener, AdapterView.OnItemClickListener, ViewTreeObserver.OnDrawListener, ViewTreeObserver.OnGlobalLayoutListener {
     private final String TAG = "ControllerWidget";
     private final String DEFAULT_TIME_PASS = "00:00";
     private final String DEFAULT_TIME_LEFT = "99:59";
@@ -155,6 +156,8 @@ public class ControllerWidget implements View.OnTouchListener, View.OnClickListe
         ivMode.setOnClickListener(this);
         processing.setOnSeekBarChangeListener(this);
         lvList.setOnItemClickListener(this);
+        lvList.getViewTreeObserver().addOnDrawListener(this);
+        lvList.getViewTreeObserver().addOnGlobalLayoutListener(this);
 
         timePass.setText(DEFAULT_TIME_PASS);
         timeLeft.setText(DEFAULT_TIME_LEFT);
@@ -374,6 +377,7 @@ public class ControllerWidget implements View.OnTouchListener, View.OnClickListe
             title.setText(song.songTitle);
             artist.setText(song.getArtists().getNameString());
             playlistListAdapter.setHighlight(index);
+            lvList.smoothScrollToPosition(index);
         }
     }
 
@@ -410,7 +414,7 @@ public class ControllerWidget implements View.OnTouchListener, View.OnClickListe
                     listener.onAboutClick(isAboutOpen);
                     break;
                 case R.id.ivLyric:
-                    listener.onLyricClick(playlistListAdapter.getCurrentReference(), playlistListAdapter.getCurrentSongId());
+                    listener.onLyricClick(playlistListAdapter.getCurrentReference(), playlistListAdapter.getCurrentSongId(), isLyricOpen);
                     break;
                 case R.id.ivTimer:
                     listener.onTimerClick(isTimerOpen);
@@ -454,6 +458,20 @@ public class ControllerWidget implements View.OnTouchListener, View.OnClickListe
         }
     }
 
+    @Override
+    public void onDraw() {
+        if (playlistListAdapter.getHighlightIndex() < lvList.getCount()) {
+            lvList.smoothScrollToPosition(playlistListAdapter.getHighlightIndex());
+        }
+    }
+
+    @Override
+    public void onGlobalLayout() {
+        if (playlistListAdapter.getHighlightIndex() < lvList.getCount()) {
+            lvList.smoothScrollToPosition(playlistListAdapter.getHighlightIndex());
+        }
+    }
+
     public interface Listener {
         void onProgressUpdate(int newProgress, int max);
 
@@ -461,7 +479,7 @@ public class ControllerWidget implements View.OnTouchListener, View.OnClickListe
 
         void onAboutClick(Boolean isAboutOpen);
 
-        void onLyricClick(int ref, String id);
+        void onLyricClick(int ref, String id, Boolean isLyricOpen);
 
         void onTimerClick(Boolean isTimerOpen);
 

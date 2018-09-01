@@ -63,7 +63,8 @@ import static ca.jinyao.ma.yaocollection.audio.cores.AudioConfig.MODE_NORMAL;
  */
 public class AudioService extends Service {
     public final int ICON_RES_ID = R.mipmap.ic_music;
-    public final String NAME = "Audio Online";
+    public final String NAME = "Audio Online\n" +
+            "QQ | 163";
     public final String AUTHOR = "By jinyaoMa";
     public final String VERSION = "VERSION\n" +
             "practice 0.1";
@@ -165,7 +166,7 @@ public class AudioService extends Service {
         lastYControl = -1;
         lastMode = MODE_NORMAL;
         lastSonglist = new SongList();
-        lastSongIndex = -1;
+        lastSongIndex = 0;
         lastProxy = false;
 
         AudioConfig.trustEveryone();
@@ -220,13 +221,12 @@ public class AudioService extends Service {
                     controllerWidget.create(lastXControl, lastYControl);
                 }
                 if (!lastSonglist.isEmpty()) {
-                    controllerWidget.setSonglist(lastSonglist);
                     if (lastSongIndex >= 0) {
+                        controllerWidget.setSonglist(lastSonglist);
                         controllerWidget.setSongInfo(lastSongIndex);
                         createAudioPlayerOnce(lastSonglist);
                     }
                 }
-                controllerWidget.setModeState(lastMode);
 
                 settingWidget.setProxyEnable(lastProxy);
             }
@@ -376,7 +376,7 @@ public class AudioService extends Service {
             }
 
             @Override
-            public void onLyricClick(int ref, String id) {
+            public void onLyricClick(int ref, String id, Boolean isLyricOpen) {
                 if (ref < 0 || id.isEmpty()) {
                     return;
                 }
@@ -476,7 +476,11 @@ public class AudioService extends Service {
     private Boolean createAudioPlayerOnce(SongList songs) {
         if (audioPlayer == null) {
             try {
-                audioPlayer = new AudioPlayer(songs, 0, lastMode);
+                if (lastSongIndex < songs.size()) {
+                    audioPlayer = new AudioPlayer(songs, lastSongIndex, lastMode);
+                } else {
+                    audioPlayer = new AudioPlayer(songs, 0, lastMode);
+                }
                 audioPlayer.setListener(new AudioPlayer.PlayingListener() {
                     @Override
                     public void onBufferingUpdate(IjkMediaPlayer ijkMediaPlayer, int percentage) {
@@ -485,6 +489,7 @@ public class AudioService extends Service {
 
                     @Override
                     public void onSongChanged(IjkMediaPlayer ijkMediaPlayer, final Song song, int currentIndex) {
+                        recordPreference();
                         lastSongIndex = currentIndex;
                         controllerWidget.setSongInfo(currentIndex);
                         ImageCacher.getImage(song.getCoverPath(), new ImageCacher.ImageCacheListener() {
@@ -602,7 +607,7 @@ public class AudioService extends Service {
         lastYControl = sharedPreferences.getInt(LAST_Y_CONTROL, -1);
         lastMode = sharedPreferences.getInt(LAST_MODE, MODE_NORMAL);
         lastSonglist = new Gson().fromJson(sharedPreferences.getString(LAST_SONGLIST, "[]"), SongList.class);
-        lastSongIndex = sharedPreferences.getInt(LAST_SONG_INDEX, -1);
+        lastSongIndex = sharedPreferences.getInt(LAST_SONG_INDEX, 0);
         lastProxy = sharedPreferences.getBoolean(LAST_PROXY, false);
     }
 

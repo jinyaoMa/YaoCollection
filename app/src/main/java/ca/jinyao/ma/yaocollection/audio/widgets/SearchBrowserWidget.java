@@ -495,6 +495,7 @@ public class SearchBrowserWidget implements SearchBrowser.AsyncListener, TabLayo
 
     @Override
     public boolean onQueryTextSubmit(String s) {
+        ivLoad.start();
         isFirstLoad = true;
         searchView.clearFocus();
         searchBrowser.search(tlReference.getTabMode(), currentTab, s);

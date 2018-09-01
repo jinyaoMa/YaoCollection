@@ -155,15 +155,16 @@ public class SongCacher {
                                 }
                             }
 
-                            String filename = "0";
+                            int filename = 0;
                             for (Object value : cacheProperties.values()) {
-                                if (filename.compareTo((String) value) < 0) {
-                                    filename = (String) value;
+                                int n = Integer.parseInt((String) value);
+                                if (filename < n) {
+                                    filename = n;
                                 }
                             }
 
                             InputStream inputStream = urlConnection.getInputStream();
-                            File file = new File(songCachePath + (Integer.parseInt(filename) + 1));
+                            File file = new File(songCachePath + String.format("%d", filename + 1));
                             FileOutputStream fileOutputStream = new FileOutputStream(file);
                             OutputStream outputStream = new BufferedOutputStream(fileOutputStream);
 

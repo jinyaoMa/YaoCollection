@@ -175,16 +175,16 @@ public class LyricCacher {
                         }
                     }
 
-                    String filename = "0";
+                    int filename = 0;
                     for (Object value : cacheProperties.values()) {
-                        if (filename.compareTo((String) value) < 0) {
-                            filename = (String) value;
+                        int n = Integer.parseInt((String) value);
+                        if (filename < n) {
+                            filename = n;
                         }
                     }
 
-                    filename = String.format("%d", Integer.parseInt(filename) + 1);
                     saveLyric(lyricCachePath + filename, new Gson().toJson(lyric));
-                    cacheProperties.put(String.format("%d/%s/%s", ref, TAG, id), filename);
+                    cacheProperties.put(String.format("%d/%s/%s", ref, TAG, id), String.format("%d", filename + 1));
                 } catch (JSONException e) {
                     e.printStackTrace();
                     return null;

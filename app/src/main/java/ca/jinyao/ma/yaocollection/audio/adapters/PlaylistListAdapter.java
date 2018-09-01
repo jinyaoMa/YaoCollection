@@ -118,4 +118,8 @@ public class PlaylistListAdapter extends BaseAdapter {
         }
         return "";
     }
+
+    public int getHighlightIndex() {
+        return highlightIndex;
+    }
 }

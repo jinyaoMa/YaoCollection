@@ -14,9 +14,13 @@ import ca.jinyao.ma.yaocollection.audio.AudioService;
 public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
     private final int AUDIO_SERVICE_REQUEST_CODE = 101;
     private final int AUDIO_SERVICE_TAG = 101;
+    private final int VIDEO_SERVICE_REQUEST_CODE = 102;
+    private final int VIDEO_SERVICE_TAG = 102;
 
     @BindView(R.id.sAudio)
     Switch sAudio;
+    @BindView(R.id.sVideo)
+    Switch sVideo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,9 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         sAudio.setTag(AUDIO_SERVICE_TAG);
         sAudio.setOnCheckedChangeListener(this);
         sAudio.setChecked(AudioService.isRunning());
+
+        sVideo.setTag(VIDEO_SERVICE_TAG);
+        sVideo.setOnCheckedChangeListener(this);
 
     }
 
@@ -52,13 +59,22 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        if (b) {
-            switch ((int) compoundButton.getTag()) {
-                case AUDIO_SERVICE_TAG:
+        switch ((int) compoundButton.getTag()) {
+            case AUDIO_SERVICE_TAG:
+                if (b) {
                     sAudio.setChecked(AudioService.checkPermissionAndStart(this, AUDIO_SERVICE_REQUEST_CODE, true));
-            }
-        } else {
-            AudioService.stop(this);
+                } else {
+                    AudioService.stop(this);
+                }
+                break;
+            case VIDEO_SERVICE_TAG:
+                if (b) {
+                    if (AudioService.isRunning()) {
+                        sAudio.setChecked(false);
+                    }
+                    Intent intent = new Intent(this, TestActivity.class);
+                    startActivity(intent);
+                }
         }
     }
 }
