@@ -14,8 +14,12 @@ public class VideoConfig {
     public static final String TYPE_TVP = "ju";
     public static final String TYPE_ANIME = "dm";
 
+    public static final String BASE_URL = "http://www.y80s.com/";
     public static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64)" +
             " AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36";
+
+    public static String imagePath = "/mnt/sdcard/Yao/video/image/";
+    public static String downloadPath = "/mnt/sdcard/Yao/video/download/";
 
     public static Connection getConnectionFor(String url) {
         return Jsoup.connect(url)
