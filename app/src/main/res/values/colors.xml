@@ -3,11 +3,4 @@
     <color name="colorPrimary">#E4451E</color>
     <color name="colorPrimaryDark">#d4350E</color>
     <color name="colorAccent">#6FACE3</color>
-
-
-    <color name="colorWhiteTransparent">#ddffffff</color>
-    <color name="colorWhiteGray">#99ffffff</color>
-    <color name="colorBlackTransparent">#22000000</color>
-    <color name="colorBlackGray">#66000000</color>
-    <color name="colorAccentTransparent">#996FACE3</color>
 </resources>

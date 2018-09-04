@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="thumb_width_height">50dp</dimen>
-    <dimen name="thumb_half_width_height">25dp</dimen>
-    <dimen name="thumb_large_width_height">72dp</dimen>
-    <dimen name="thumb_small_width_height">32dp</dimen>
+    <dimen name="thumb">72dp</dimen>
 </resources>

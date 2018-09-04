@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/round_widget_rectangle"
+    android:theme="@style/AppTheme">
+
+    <ImageView
+        android:id="@+id/ivMove"
+        android:layout_width="@dimen/thumb_width_height"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name"
+        android:scaleType="center"
+        android:src="@drawable/ic_action_move"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name"
+        android:scaleType="center"
+        android:src="@drawable/ic_action_close"
+        app:layout_constraintBottom_toBottomOf="@+id/ivMove"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivMove" />
+
+    <ImageView
+        android:id="@+id/ivLoad"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name"
+        android:scaleType="center"
+        android:src="@drawable/ic_action_load"
+        app:layout_constraintBottom_toBottomOf="@+id/ivMove"
+        app:layout_constraintStart_toEndOf="@+id/ivMove"
+        app:layout_constraintTop_toTopOf="@+id/ivMove" />
+
+    <LinearLayout
+        android:id="@+id/CatalogueContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivMove">
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lvVideo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CatalogueContainer"
+        tools:listitem="@layout/video_list_item" />
+
+</android.support.constraint.ConstraintLayout>

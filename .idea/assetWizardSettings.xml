@@ -13,6 +13,19 @@
                       <PersistentState>
                         <option name="children">
                           <map>
+                            <entry key="actionbar">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="imageAsset" value="C:\Users\jinya\Documents\GitHub\YaoCollection\images\load.png" />
+                                      <entry key="outputName" value="ic_action_load" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
                             <entry key="launcher">
                               <value>
                                 <PersistentState>
@@ -45,10 +58,10 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundImage" value="C:\Users\jinya\Desktop\images\background.png" />
-                                      <entry key="backgroundLayerName" value="ic_icon_music_background" />
-                                      <entry key="foregroundImage" value="C:\Users\jinya\Desktop\images\music.png" />
-                                      <entry key="foregroundLayerName" value="ic_icon_music_foreground" />
-                                      <entry key="outputName" value="ic_movie" />
+                                      <entry key="foregroundImage" value="C:\Users\jinya\Desktop\images\movie.png" />
+                                      <entry key="legacyIconShape" value="NONE" />
+                                      <entry key="outputName" value="ic_icon_movie" />
+                                      <entry key="webIconShape" value="NONE" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -57,27 +70,12 @@
                             <entry key="launcherLegacy">
                               <value>
                                 <PersistentState>
-                                  <option name="children">
-                                    <map>
-                                      <entry key="image">
-                                        <value>
-                                          <PersistentState>
-                                            <option name="values">
-                                              <map>
-                                                <entry key="paddingPercent" value="40" />
-                                              </map>
-                                            </option>
-                                          </PersistentState>
-                                        </value>
-                                      </entry>
-                                    </map>
-                                  </option>
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="C:\Users\jinya\Desktop\images\music.png" />
-                                      <entry key="outputName" value="ic_music" />
+                                      <entry key="imageAsset" value="C:\Users\jinya\Desktop\images\background.png" />
+                                      <entry key="outputName" value="ic_background" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -87,7 +85,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputIconType" value="LAUNCHER_LEGACY" />
+                            <entry key="outputIconType" value="ACTIONBAR" />
                           </map>
                         </option>
                       </PersistentState>

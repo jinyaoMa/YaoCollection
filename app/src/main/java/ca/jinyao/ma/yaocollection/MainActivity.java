@@ -9,7 +9,9 @@ import android.widget.Switch;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ca.jinyao.ma.yaocollection.audio.AudioService;
+import ca.jinyao.ma.audio.AudioService;
+import ca.jinyao.ma.video.TestActivity;
+import ca.jinyao.ma.video.VideoService;
 
 public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
     private final int AUDIO_SERVICE_REQUEST_CODE = 101;
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
         sVideo.setTag(VIDEO_SERVICE_TAG);
         sVideo.setOnCheckedChangeListener(this);
+        sVideo.setChecked(VideoService.isRunning());
 
     }
 
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         sAudio.setChecked(AudioService.checkPermissionAndStart(this, requestCode, grantResults[0]));
+        sVideo.setChecked(VideoService.checkPermissionAndStart(this, requestCode, grantResults[0]));
     }
 
     @Override
@@ -50,11 +54,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         super.onActivityResult(requestCode, resultCode, data);
 
         sAudio.setChecked(AudioService.checkPermissionAndStart(this, requestCode, false));
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+        sVideo.setChecked(VideoService.checkPermissionAndStart(this, requestCode, false));
     }
 
     @Override
@@ -62,6 +62,9 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         switch ((int) compoundButton.getTag()) {
             case AUDIO_SERVICE_TAG:
                 if (b) {
+                    if (VideoService.isRunning()) {
+                        sVideo.setChecked(false);
+                    }
                     sAudio.setChecked(AudioService.checkPermissionAndStart(this, AUDIO_SERVICE_REQUEST_CODE, true));
                 } else {
                     AudioService.stop(this);
@@ -72,8 +75,9 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                     if (AudioService.isRunning()) {
                         sAudio.setChecked(false);
                     }
-                    Intent intent = new Intent(this, TestActivity.class);
-                    startActivity(intent);
+                    sVideo.setChecked(VideoService.checkPermissionAndStart(this, VIDEO_SERVICE_REQUEST_CODE, true));
+                } else {
+                    VideoService.stop(this);
                 }
         }
     }
