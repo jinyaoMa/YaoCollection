@@ -19,10 +19,12 @@ import android.widget.Toast;
 import java.io.InputStream;
 
 import ca.jinyao.ma.video.components.CatalogueTable;
+import ca.jinyao.ma.video.components.Video;
 import ca.jinyao.ma.video.components.VideoList;
 import ca.jinyao.ma.video.cores.SourceBrowser;
 import ca.jinyao.ma.video.cores.VideoConfig;
 import ca.jinyao.ma.video.widgets.NavigationWidget;
+import ca.jinyao.ma.video.widgets.SourceBrowserWidget;
 
 /**
  * Class VideoService
@@ -46,7 +48,7 @@ public class VideoService extends Service {
     public final String TAG = "VideoService";
 
     private NavigationWidget navigationWidget;
-
+    private SourceBrowserWidget sourceBrowserWidget;
 
     private NotificationManager mNotificationManager;
     private NotificationCompat.Builder builder;
@@ -93,6 +95,7 @@ public class VideoService extends Service {
         startForeground(NOTIFICATION_ID, notification);
 
         navigationWidget = new NavigationWidget(this);
+        sourceBrowserWidget = new SourceBrowserWidget(this);
 
         navigationWidget.create();
 
@@ -108,6 +111,11 @@ public class VideoService extends Service {
 
             @Override
             public void onBrowseClick(Boolean isBrowseOn) {
+                if (isBrowseOn) {
+                    sourceBrowserWidget.remove();
+                } else {
+                    sourceBrowserWidget.create();
+                }
                 navigationWidget.setBrowseOn(!isBrowseOn);
             }
 
@@ -119,6 +127,18 @@ public class VideoService extends Service {
             @Override
             public void onListClick(Boolean isListOn) {
                 navigationWidget.setListOn(!isListOn);
+            }
+        });
+
+        sourceBrowserWidget.setListener(new SourceBrowserWidget.Listener() {
+            @Override
+            public void onVideoClick(Video video) {
+                Toast.makeText(VideoService.this, video.getTitle(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onClose() {
+                navigationWidget.setBrowseOn(false);
             }
         });
     }

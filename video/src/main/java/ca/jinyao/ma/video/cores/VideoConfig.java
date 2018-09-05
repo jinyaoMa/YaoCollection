@@ -17,6 +17,7 @@ import javax.net.ssl.X509TrustManager;
  */
 public class VideoConfig {
     public static final int DEFAULT = 0;
+    public static final int SECOND = 1000;
 
     public static final String TYPE_MOVIE = "movie";
     public static final String TYPE_TVP = "ju";
@@ -32,8 +33,11 @@ public class VideoConfig {
     public static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64)" +
             " AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36";
 
-    public static String imagePath = "/mnt/sdcard/Yao/video/image/";
+    public static final long CACHE_MIN_FREE_SPACE = 512l * 1024 * 1024;
+    public static String cachePropertiesFilename = "cache";
+    public static String imageCachePath = "/mnt/sdcard/Yao/video/image/";
     public static String downloadPath = "/mnt/sdcard/Yao/video/download/";
+    public static int imageCacheLimit = 200;
 
     public static Connection getConnectionFor(String url) {
         return Jsoup.connect(url)

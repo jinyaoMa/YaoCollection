@@ -2,12 +2,14 @@ package ca.jinyao.ma.video.cores;
 
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import org.jsoup.Connection;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.concurrent.Executor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,13 +19,15 @@ import ca.jinyao.ma.video.components.CatalogueTable;
 import ca.jinyao.ma.video.components.Video;
 import ca.jinyao.ma.video.components.VideoList;
 
+import static ca.jinyao.ma.video.cores.VideoConfig.PAGE_HOLDER;
+
 /**
  * class SourceBrowser
  * create by jinyaoMa 0001 2018/9/1 21:29
  */
 public class SourceBrowser {
     public final String TAG = "SourceBrowser";
-    public final int FIRST = 1;
+    private final int FIRST = 1;
 
     public interface Listener {
         void onGetSourceComplete(CatalogueTable catalogueTable, VideoList videoList, int nextPage, Boolean hasNext);
@@ -51,6 +55,10 @@ public class SourceBrowser {
         isByType = true;
     }
 
+    public String getCurrentType() {
+        return currentType;
+    }
+
     public void getByType(String type) {
         isByType = true;
         currentType = type;
@@ -67,10 +75,30 @@ public class SourceBrowser {
         new GetSourceTask().execute();
     }
 
-    public void getByUrl(String url, int page) {
-        isByType = false;
+    public void getByUrl(@NonNull String url) {
+        isByType = true;
+        Log.e(TAG, url);
         if (url.startsWith("http")) {
             currentUrl = url;
+            if (url.contains(VideoConfig.TYPE_MOVIE)) {
+                currentType = VideoConfig.TYPE_MOVIE;
+            } else if (url.contains(VideoConfig.TYPE_TVP)) {
+                currentType = VideoConfig.TYPE_TVP;
+            } else if (url.contains(VideoConfig.TYPE_ANIME)) {
+                currentType = VideoConfig.TYPE_ANIME;
+            }
+            currentPage = FIRST;
+            new GetSourceTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else {
+            listener.onError();
+        }
+    }
+
+    public void getByUrl(@NonNull String url, int page) {
+        isByType = false;
+        Log.e(TAG, url);
+        if (url.startsWith("http")) {
+            currentUrl = url.split(PAGE_HOLDER)[0];
             if (url.contains(VideoConfig.TYPE_MOVIE)) {
                 currentType = VideoConfig.TYPE_MOVIE;
             } else if (url.contains(VideoConfig.TYPE_TVP)) {
@@ -96,6 +124,7 @@ public class SourceBrowser {
                 currentPage = FIRST;
                 currentMaxPage = FIRST;
             }
+            currentUrl += PAGE_HOLDER + currentPage;
 
             Connection connection = VideoConfig.getConnectionFor(currentUrl);
 
@@ -112,7 +141,7 @@ public class SourceBrowser {
                         String name = tag.selectFirst("a").ownText();
                         String url = VideoConfig.URL_BASE + tag.selectFirst("a").attr("href");
                         Catalogue catalogue = new Catalogue(name, url);
-                        catalogue.setSelected(tag.hasClass("selected"));
+                        catalogue.setSelected(currentUrl.startsWith(url));
                         catalogues.add(catalogue);
                     }
 
@@ -125,15 +154,18 @@ public class SourceBrowser {
                     String coverPath = v.selectFirst("a img").attr("_src");
                     String title = v.selectFirst("a").attr("title");
                     String message = v.selectFirst("span.tip").text().trim();
-                    String ico = v.selectFirst("span.ico1").text().trim();
+                    String ico = "";
+                    if (v.selectFirst(".ico1") != null) {
+                        ico = v.selectFirst(".ico1").text().trim();
+                    }
 
                     Video video = new Video(currentType, url, coverPath, title, message, ico);
                     currentVideoList.add(video);
                 }
 
                 Element pager = body.select("#block3 #block1").last().selectFirst("div.pager");
-                if (pager.select("a").size() > 0) {
-                    String[] temp = pager.select("a").last().attr("href").split(VideoConfig.PAGE_HOLDER);
+                if (pager != null && pager.select("a").size() > 0) {
+                    String[] temp = pager.select("a").last().attr("href").split(PAGE_HOLDER);
                     if (temp.length == 2 && !temp[1].isEmpty()) {
                         currentMaxPage = Integer.parseInt(temp[1]);
                     }

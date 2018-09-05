@@ -19,8 +19,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\jinya\Documents\GitHub\YaoCollection\images\load.png" />
-                                      <entry key="outputName" value="ic_action_load" />
+                                      <entry key="imageAsset" value="C:\Users\jinya\Documents\GitHub\YaoCollection\images\tv.png" />
+                                      <entry key="outputName" value="ic_action_tv" />
                                     </map>
                                   </option>
                                 </PersistentState>

@@ -45,16 +45,26 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        sAudio.setChecked(AudioService.checkPermissionAndStart(this, requestCode, grantResults[0]));
-        sVideo.setChecked(VideoService.checkPermissionAndStart(this, requestCode, grantResults[0]));
+        switch (requestCode) {
+            case AUDIO_SERVICE_REQUEST_CODE:
+                sAudio.setChecked(AudioService.checkPermissionAndStart(this, requestCode, grantResults[0]));
+                break;
+            case VIDEO_SERVICE_REQUEST_CODE:
+                sVideo.setChecked(VideoService.checkPermissionAndStart(this, requestCode, grantResults[0]));
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        sAudio.setChecked(AudioService.checkPermissionAndStart(this, requestCode, false));
-        sVideo.setChecked(VideoService.checkPermissionAndStart(this, requestCode, false));
+        switch (requestCode) {
+            case AUDIO_SERVICE_REQUEST_CODE:
+                sAudio.setChecked(AudioService.checkPermissionAndStart(this, requestCode, false));
+                break;
+            case VIDEO_SERVICE_REQUEST_CODE:
+                sVideo.setChecked(VideoService.checkPermissionAndStart(this, requestCode, false));
+        }
     }
 
     @Override

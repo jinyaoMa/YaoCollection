@@ -25,4 +25,8 @@ public class Catalogue {
     public void setSelected(Boolean selected) {
         this.selected = selected;
     }
+
+    public Boolean isSelected() {
+        return selected;
+    }
 }
