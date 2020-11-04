@@ -1,0 +1,113 @@
+io/vov/vitamio/EGL.java
+ io.vov.vitamio.EGL
+ io.vov.vitamio.EGL$1
+ io.vov.vitamio.EGL$ComponentSizeChooser
+ io.vov.vitamio.EGL$EGLConfigChooser
+ io.vov.vitamio.EGL$EGLContextFactory
+ io.vov.vitamio.EGL$EGLWindowSurfaceFactory
+ io.vov.vitamio.EGL$SimpleEGLConfigChooser
+io/vov/vitamio/widget/MediaController.java
+ io.vov.vitamio.widget.MediaController
+ io.vov.vitamio.widget.MediaController$1
+ io.vov.vitamio.widget.MediaController$2
+ io.vov.vitamio.widget.MediaController$3
+ io.vov.vitamio.widget.MediaController$MediaPlayerControl
+ io.vov.vitamio.widget.MediaController$OnHiddenListener
+ io.vov.vitamio.widget.MediaController$OnShownListener
+io/vov/vitamio/MediaFile.java
+ io.vov.vitamio.MediaFile
+ io.vov.vitamio.MediaFile$MediaFileType
+io/vov/vitamio/MediaFormat.java
+ io.vov.vitamio.MediaFormat
+io/vov/vitamio/Vitamio.java
+ io.vov.vitamio.Vitamio
+io/vov/vitamio/provider/MediaStore.java
+ io.vov.vitamio.provider.MediaStore
+ io.vov.vitamio.provider.MediaStore$Audio
+ io.vov.vitamio.provider.MediaStore$Audio$AudioColumns
+ io.vov.vitamio.provider.MediaStore$Audio$Media
+ io.vov.vitamio.provider.MediaStore$InternalThumbnails
+ io.vov.vitamio.provider.MediaStore$MediaColumns
+ io.vov.vitamio.provider.MediaStore$Video
+ io.vov.vitamio.provider.MediaStore$Video$Media
+ io.vov.vitamio.provider.MediaStore$Video$Thumbnails
+ io.vov.vitamio.provider.MediaStore$Video$VideoColumns
+io/vov/vitamio/MediaScannerClient.java
+ io.vov.vitamio.MediaScannerClient
+io/vov/vitamio/MediaScanner.java
+ io.vov.vitamio.MediaScanner
+ io.vov.vitamio.MediaScanner$1
+ io.vov.vitamio.MediaScanner$FileCacheEntry
+ io.vov.vitamio.MediaScanner$MyMediaScannerClient
+io/vov/vitamio/activity/InitActivity.java
+ io.vov.vitamio.activity.InitActivity
+ io.vov.vitamio.activity.InitActivity$1
+ io.vov.vitamio.activity.InitActivity$UIHandler
+io/vov/vitamio/VitamioLicense.java
+ io.vov.vitamio.VitamioLicense
+io/vov/vitamio/utils/Device.java
+ io.vov.vitamio.utils.Device
+io/vov/vitamio/BuildConfig.java
+ io.vov.vitamio.BuildConfig
+io/vov/vitamio/VIntent.java
+ io.vov.vitamio.VIntent
+io/vov/vitamio/utils/CPU.java
+ io.vov.vitamio.utils.CPU
+io/vov/vitamio/provider/MiniThumbFile.java
+ io.vov.vitamio.provider.MiniThumbFile
+io/vov/vitamio/widget/CenterLayout.java
+ io.vov.vitamio.widget.CenterLayout
+ io.vov.vitamio.widget.CenterLayout$LayoutParams
+io/vov/vitamio/ThumbnailUtils.java
+ io.vov.vitamio.ThumbnailUtils
+io/vov/vitamio/utils/Base64.java
+ io.vov.vitamio.utils.Base64
+ io.vov.vitamio.utils.Base64$Coder
+ io.vov.vitamio.utils.Base64$Decoder
+ io.vov.vitamio.utils.Base64$Encoder
+io/vov/vitamio/MediaPlayer.java
+ io.vov.vitamio.MediaPlayer
+ io.vov.vitamio.MediaPlayer$EventHandler
+ io.vov.vitamio.MediaPlayer$OnBufferingUpdateListener
+ io.vov.vitamio.MediaPlayer$OnCachingUpdateListener
+ io.vov.vitamio.MediaPlayer$OnCompletionListener
+ io.vov.vitamio.MediaPlayer$OnErrorListener
+ io.vov.vitamio.MediaPlayer$OnHWRenderFailedListener
+ io.vov.vitamio.MediaPlayer$OnInfoListener
+ io.vov.vitamio.MediaPlayer$OnPreparedListener
+ io.vov.vitamio.MediaPlayer$OnSeekCompleteListener
+ io.vov.vitamio.MediaPlayer$OnTimedTextListener
+ io.vov.vitamio.MediaPlayer$OnVideoSizeChangedListener
+ io.vov.vitamio.MediaPlayer$TrackInfo
+io/vov/vitamio/utils/ContextUtils.java
+ io.vov.vitamio.utils.ContextUtils
+io/vov/vitamio/widget/OutlineTextView.java
+ io.vov.vitamio.widget.OutlineTextView
+io/vov/vitamio/utils/StringUtils.java
+ io.vov.vitamio.utils.StringUtils
+io/vov/vitamio/widget/VideoView.java
+ io.vov.vitamio.widget.VideoView
+ io.vov.vitamio.widget.VideoView$1
+ io.vov.vitamio.widget.VideoView$2
+ io.vov.vitamio.widget.VideoView$3
+ io.vov.vitamio.widget.VideoView$4
+ io.vov.vitamio.widget.VideoView$5
+ io.vov.vitamio.widget.VideoView$5$1
+ io.vov.vitamio.widget.VideoView$6
+ io.vov.vitamio.widget.VideoView$7
+ io.vov.vitamio.widget.VideoView$8
+ io.vov.vitamio.widget.VideoView$9
+io/vov/vitamio/utils/ScreenResolution.java
+ io.vov.vitamio.utils.ScreenResolution
+io/vov/vitamio/utils/Crypto.java
+ io.vov.vitamio.utils.Crypto
+io/vov/vitamio/utils/FileUtils.java
+ io.vov.vitamio.utils.FileUtils
+io/vov/vitamio/Metadata.java
+ io.vov.vitamio.Metadata
+io/vov/vitamio/utils/Log.java
+ io.vov.vitamio.utils.Log
+io/vov/vitamio/MediaMetadataRetriever.java
+ io.vov.vitamio.MediaMetadataRetriever
+io/vov/vitamio/utils/IOUtils.java
+ io.vov.vitamio.utils.IOUtils
